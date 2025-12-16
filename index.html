@@ -1,200 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DISCOUNT SHOP</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product List</title>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-}
-.container {
-    width: 900px;
-    max-width: 90vw;
-    margin: auto;
-    text-align: center;
-    padding-top: 10px;
-    transition: 0.5s;
-}
-svg {
-    width: 30px ;
-}
-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
-    padding: 0 20px;
-}
-header .icon-cart span {
-    position: absolute;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    top: 50%;
-    right: -20px;
-} 
-.listproduct .item img {
-    width: 90%;
-    filter: drop-shadow(0 50px 20px #0009);
-}
-.listproduct {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: none;
-}
-.listproduct .item {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #0002;
-    transition: transform 0.3s;
-}
-.listproduct .item h2 {
-    font-size: large;
-    font-weight: 600;
-}
-.listproduct .item .price {
-    letter-spacing: 7px;
-    font-size: small;
-}
-.listproduct .item button {
-    background-color: #353432;
-    color: #eee;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-top: 10px;
-    border: none;
-    cursor: pointer;
-}
-.cartTarb{
-    width: 400px;
-    background-color: #353432;
-    color: #eee;
-    position: fixed;
-    inset: 0 -400px 0 auto;
-    display: grid;
-    grid-template-rows: 70px 1fr 70px;
-    transition: 5s;
-}
-body.showcart .cartTab{
-    insert: 0 0 0 auto;
-}
-body.showcart .cartTab{
-    transform: translatedX(-250px);
-}
-.cartTab h1{
-    padding: 20px;
-    margin: 0;
-    font-weight: 300;
-}
-.cartTab .btn{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-.cartTab .btn button{
-    background-color: yellow;
-    border: none;
-    font-family: poppins;
-    font-weight: 500;
-    cursor: pointer;
-}
-.cartTab .btn .close{
-    background-color: white;
-}
-.cartTab .listcart .item img{
-    width: 100%;
-}
-.cartTab .listcart .item{
-    display: grid;
-    grid-template-columns: 70px 150px 50px 1fr;
-    gap: 10px;
-    text-align: center;
-    align-items: center;
-}
-.listcart .quantity span{
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background-color: white;
-    color: #555;
-    border-radius: 50%;
-    cursor: pointer;
-}
-.listcart .quantity span:nth-child(2){
-    background-color: transparent;
-    color: white;
-}
-.listcart .item:nth-child(even){
-    background-color: #eee1;
-}
-.listcart{
-    overflow: auto;
-}
-.listcart::-webkit-scrollbar{
-    width: 0;
-}
-</style>
-<body class="showcartd">
-  
-  <div class="container"></div>
-    <header>
-        <div class="tittle">PRODUCT LIST</div>
-        <div class="icon-cart">
-         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
-         </svg>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-      </div>
-    </header>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+    }
 
-    <div class="listproduct">
-      <img src="rice.jpg" alt="">
+    .container {
+      width: 900px;
+      max-width: 90vw;
+      margin: auto;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .icon-cart {
+      position: relative;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    .icon-cart span {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: red;
+      color: #fff;
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .listproduct {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .item {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 20px #0002;
+      transition: transform 0.2s;
+    }
+    
+    .item:hover {
+        transform: translateY(-5px);
+    }
+
+    .item img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    .price {
+      margin: 10px 0;
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #353432;
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    
+    button:hover {
+        background: #000;
+    }
+
+    /* Cart */
+    .cartTab {
+      width: 400px;
+      background: #353432;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      right: -400px;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: 70px 1fr 70px;
+      transition: 0.4s;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+
+    body.showCart .cartTab {
+      right: 0;
+    }
+
+    .cartTab h1 {
+      margin: 0;
+      padding: 20px;
+      font-weight: 400;
+      font-size: 24px;
+    }
+
+    .listcart {
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .listcart .item {
+      display: grid;
+      grid-template-columns: 70px 1fr 50px 80px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 15px;
+      background: #444;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: none;
+      text-align: left;
+    }
+    
+    .listcart .item img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .quantity {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .quantity span {
+      display: inline-flex;
+      width: 25px;
+      height: 25px;
+      background: #fff;
+      color: #000;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .quantity span:nth-child(2) {
+      background: transparent;
+      color: #fff;
+      cursor: default;
+    }
+
+    .btn {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .btn button {
+        border-radius: 0;
+    }
+
+    .btn .close {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn .checkout {
+      background: #E8BC0E;
+      color: #000;
+    }
+    
+    /* Overlay */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s;
+        z-index: 99;
+    }
+    
+    body.showCart .overlay {
+        pointer-events: auto;
+        opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="container">
+  <header>
+    <div class="title">FRESH MARKET</div>
+    <div class="icon-cart" id="cartBtn" aria-label="Open Cart">
+      🛒<span id="cartCount">0</span>
+    </div>
+  </header>
+
+  <div class="listproduct">
+    <div class="item">
+      <img src="https://placehold.co/300x300/orange/white?text=Rice" alt="Rice Bag">
       <h2>RICE</h2>
-      <div class="price">ksh 120.00</div>
-        <button class="add-to-cart">
-           Add to Cart
-        </button>
-      </div>
+      <div class="price">KSH 120</div>
+      <button>Add to Cart</button>
     </div>
-</div>
-  <div class="cartTab">
-    <h1>shopping cart</h1>
-    <div class="listcart">
-      <div class="item">
-        <div class="img">
-          <img src="rice.jpg" alt="">
-        </div>
-        <div class="name">
-          NAME
-        </div>
-        <div class="totalprice">
-          120
-        </div>
-        <div class="quantity">
-          <span class="minus"><</span>
-          <span>1</span>
-          <span class="plus">></span>
-        </div>
-      </div>
+    <div class="item">
+      <img src="https://placehold.co/300x300/green/white?text=Beans" alt="Beans">
+      <h2>BEANS</h2>
+      <div class="price">KSH 180</div>
+      <button>Add to Cart</button>
     </div>
-    <div class="btn">
-      <button class="close">close</button>
-      <button class="checkout">checkout</button>
+    <div class="item">
+      <img src="https://placehold.co/300x300/red/white?text=Oil" alt="Cooking Oil">
+      <h2>OIL</h2>
+      <div class="price">KSH 350</div>
+      <button>Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://placehold.co/300x300/blue/white?text=Flour" alt="Wheat Flour">
+      <h2>FLOUR</h2>
+      <div class="price">KSH 210</div>
+      <button>Add to Cart</button>
     </div>
   </div>
+</div>
 
-  <script src="app.js"></script>
+<div class="cartTab">
+  <h1>Shopping Cart</h1>
+  <div class="listcart"></div>
+  <div class="btn">
+    <button class="close" id="closeCart">Close</button>
+    <button class="checkout">Checkout</button>
+  </div>
+</div>
+
+<script>
+  const cartBtn = document.getElementById('cartBtn');
+  const closeCart = document.getElementById('closeCart');
+  const overlay = document.getElementById('overlay');
+  const cartCount = document.getElementById('cartCount');
+  const cartList = document.querySelector('.listcart');
+  const addBtns = document.querySelectorAll('.listproduct button');
+
+  let cart = [];
+
+  function updateCart() {
+    let html = '';
+    let count = 0;
+
+    cart.forEach((item, i) => {
+      count += item.qty;
+      html += `
+        <div class="item">
+          <img src="${item.img}" alt="${item.name}">
+          <div>
+            <div style="font-weight:bold;">${item.name}</div>
+            <div style="font-size:0.9em;">@ ${item.price}</div>
+          </div>
+          <div>${item.price * item.qty}</div>
+          <div class="quantity">
+            <span onclick="changeQty(${i}, -1)">-</span>
+            <span>${item.qty}</span>
+            <span onclick="changeQty(${i}, 1)">+</span>
+          </div>
+        </div>`;
+    });
+
+    cartList.innerHTML = html;
+    cartCount.innerText = count;
+  }
+
+  window.changeQty = function(i, c) {
+    if (cart[i]) {
+        cart[i].qty += c;
+        if (cart[i].qty <= 0) cart.splice(i, 1);
+        updateCart();
+    }
+  }
+
+  addBtns.forEach(btn => {
+    btn.onclick = () => {
+      const item = btn.closest('.item');
+      const name = item.querySelector('h2').innerText;
+      const price = parseInt(item.querySelector('.price').innerText.replace(/\D/g, ''));
+      const img = item.querySelector('img').src;
+
+      const found = cart.find(p => p.name === name);
+      if (found) found.qty++;
+      else cart.push({ name, price, img, qty: 1 });
+
+      updateCart();
+      document.body.classList.add('showCart');
+    }
+  });
+
+  const toggle = () => document.body.classList.toggle('showCart');
+  cartBtn.onclick = toggle;
+  closeCart.onclick = toggle;
+  overlay.onclick = toggle;
+</script>
+
 </body>
-</html>
+  </html>
