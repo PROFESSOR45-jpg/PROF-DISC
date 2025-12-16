@@ -1,64 +1,54 @@
-<script>
-  const cartIcon = document.querySelector('.icon-cart');
-  const cartCount = document.querySelector('.icon-cart span');
-  const addButtons = document.querySelectorAll('.listproduct .item button');
-  const cartList = document.querySelector('.listcart');
+const cartBtn = document.getElementById('cartBtn');
+const closeCart = document.getElementById('closeCart');
+const cartCount = document.getElementById('cartCount');
+const cartList = document.querySelector('.listcart');
+const addBtns = document.querySelectorAll('.listproduct button');
 
-  let cart = [];
+let cart = [];
 
-  function updateCartUI() {
-    cartList.innerHTML = '';
-    let totalQty = 0;
+function updateCart() {
+  cartList.innerHTML = '';
+  let count = 0;
 
-    cart.forEach((item, index) => {
-      totalQty += item.qty;
-
-      const div = document.createElement('div');
-      div.className = 'item';
-
-      div.innerHTML = `
+  cart.forEach((item, i) => {
+    count += item.qty;
+    cartList.innerHTML += `
+      <div class="item">
         <img src="${item.img}">
         <div>${item.name}</div>
         <div>${item.price * item.qty}</div>
         <div class="quantity">
-          <span onclick="changeQty(${index}, -1)">-</span>
+          <span onclick="changeQty(${i}, -1)">-</span>
           <span>${item.qty}</span>
-          <span onclick="changeQty(${index}, 1)">+</span>
+          <span onclick="changeQty(${i}, 1)">+</span>
         </div>
-      `;
+      </div>`;
+  });
 
-      cartList.appendChild(div);
-    });
+  cartCount.innerText = count;
+}
 
-    cartCount.textContent = totalQty;
-  }
+window.changeQty = function(i, c) {
+  cart[i].qty += c;
+  if (cart[i].qty <= 0) cart.splice(i, 1);
+  updateCart();
+};
 
-  window.changeQty = function(index, change) {
-    cart[index].qty += change;
-    if (cart[index].qty <= 0) cart.splice(index, 1);
-    updateCartUI();
+addBtns.forEach(btn => {
+  btn.onclick = () => {
+    const item = btn.closest('.item');
+    const name = item.querySelector('h2').innerText;
+    const price = parseInt(item.querySelector('.price').innerText.replace(/\D/g, ''));
+    const img = item.querySelector('img').src;
+
+    const found = cart.find(p => p.name === name);
+    if (found) found.qty++;
+    else cart.push({ name, price, img, qty: 1 });
+
+    updateCart();
+    document.body.classList.add('showCart');
   };
+});
 
-  addButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const item = button.closest('.item');
-      const name = item.querySelector('h2').innerText;
-      const price = parseInt(item.querySelector('.price').innerText.replace(/\D/g, ''));
-      const img = item.querySelector('img').src;
-
-      const existing = cart.find(p => p.name === name);
-      if (existing) {
-        existing.qty++;
-      } else {
-        cart.push({ name, price, img, qty: 1 });
-      }
-
-      updateCartUI();
-      document.body.classList.add('showCart');
-    });
-  });
-
-  cartIcon.addEventListener('click', () => {
-    document.body.classList.toggle('showCart');
-  });
-</script>
+cartBtn.onclick = () => document.body.classList.add('showCart');
+closeCart.onclick = () => document.body.classList.remove('showCart');
